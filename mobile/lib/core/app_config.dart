@@ -49,7 +49,12 @@ class AppConfig {
   static String get apiBaseUrl {
     final o = _override?.trim();
     if (o != null && o.isNotEmpty) return _normalise(o);
-    if (_dartDefineBaseUrl.isNotEmpty) return _normalise(_dartDefineBaseUrl);
+    // The dart-define value is a full URL supplied at build time (e.g. by CI) —
+    // use it as-is rather than running it through the typed-address normaliser,
+    // which would wrongly force a default :8000 port onto a standard-port host.
+    if (_dartDefineBaseUrl.isNotEmpty) {
+      return _stripTrailingSlash(_dartDefineBaseUrl.trim());
+    }
     return _defaultBaseUrl;
   }
 
