@@ -14,6 +14,29 @@ there is a clearly-labelled prototype fallback behind the same interface — see
 
 ---
 
+## Live demo
+
+- **App:** <https://chetan-kumar-g.github.io/Karigar/>
+- **API:** <https://karigar-backend-4n9v.onrender.com> (hosted via [render.yaml](render.yaml); frontend auto-deploys via [.github/workflows/deploy-web.yml](.github/workflows/deploy-web.yml))
+
+Login as artisan `9800000001` / OTP `123456`, or tap **Open SIH Demo Mode**. See
+[Demo mode & test credentials](#demo-mode--test-credentials) for the full cast.
+
+Both are on free hosting tiers, so:
+- **Cold start:** the backend spins down after ~15 min idle; the first request after
+  that can take 30–60s (and may time out once) while it wakes back up. Reload if a
+  screen seems stuck loading right after opening the link cold.
+- **Data resets on restart:** the backend's SQLite database lives on ephemeral disk, so
+  every spin-down/restart reseeds it back to the fixed demo dataset. Anything created
+  during a session (new products, orders) won't survive an idle restart — expected
+  behaviour, not a bug, given the auto-seed-on-empty-DB design below.
+- **Voice recording uses the labelled demo fallback** — the deployed backend doesn't
+  bundle a speech-to-text engine (see [F2 live voice](#f2-live-voice-real-speech-to-text)),
+  so recorded audio shows an honest "not enabled on this server" banner and a sample
+  transcript. Typed descriptions still produce a fully real F2 catalog.
+
+---
+
 ## Table of contents
 
 1. [Architecture](#architecture)
