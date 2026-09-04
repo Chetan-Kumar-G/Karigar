@@ -1,0 +1,31 @@
+# ── Core API ────────────────────────────────────────────────────────────────
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-multipart==0.0.32
+pydantic==2.13.5
+pydantic-settings==2.15.0
+SQLAlchemy==2.0.52
+# Postgres driver (optional — only needed when DATABASE_URL points at Postgres)
+psycopg[binary]==3.2.3 ; python_version < "3.14"
+
+# ── Auth ───────────────────────────────────────────────────────────────────
+PyJWT==2.13.0
+passlib[bcrypt]==1.7.4
+
+# ── AI / ML (all real, all install on CPython 3.14) ─────────────────────────
+numpy==2.5.2
+Pillow==12.3.0
+opencv-python-headless==5.0.0.93     # F1  — real computer vision
+scikit-learn==1.9.0                  # F7  — TF-IDF retrieval, F4/F5 helpers
+lightgbm==4.7.0                      # F4/F5 — real gradient-boosted regression
+scipy==1.18.1
+ortools==9.15.6755                   # F6  — real CP-SAT / MILP solver
+pulp==3.3.2                          # F6  — CBC fallback solver
+
+# ── Optional, feature-flagged (see .env.example) ───────────────────────────
+# faster-whisper==1.0.3              # F2 — real on-device ASR if installed
+# httpx used for optional OpenAI-compatible LLM calls
+httpx==0.28.1
+
+# ── Dev / test ─────────────────────────────────────────────────────────────
+pytest==8.3.4

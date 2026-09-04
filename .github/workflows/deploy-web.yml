@@ -1,0 +1,44 @@
+name: Deploy Flutter web to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/**"
+      - ".github/workflows/deploy-web.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.27.x"
+          channel: stable
+
+      - name: Install dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: mobile
+        env:
+          # Set this repo variable (Settings -> Secrets and variables -> Actions -> Variables)
+          # to your Render backend URL + /api, e.g. https://karigar-backend.onrender.com/api
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
+        run: |
+          flutter build web --release \
+            --base-href "/${{ github.event.repository.name }}/" \
+            --dart-define=API_BASE_URL="$API_BASE_URL"
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: mobile/build/web

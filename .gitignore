@@ -1,0 +1,28 @@
+# Python
+.venv/
+.venv312/
+__pycache__/
+*.pyc
+.pytest_cache/
+backend/data/sih.db*
+backend/data/uploads/
+backend/data/models/*.txt
+.env
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins*
+mobile/build/
+mobile/.pub-cache/
+mobile/pubspec.lock
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/ios/Pods/
+mobile/**/GeneratedPluginRegistrant.*
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

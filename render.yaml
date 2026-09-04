@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: karigar-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: SIH_ENVIRONMENT
+        value: production
+      - key: SIH_DEBUG
+        value: "false"
+      - key: SIH_JWT_SECRET
+        generateValue: true
+      - key: SIH_MOCK_OTP
+        value: "123456"
